@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="General">
+    <PreferenceCategory
+        android:icon="@null"
+        android:key="general"
+        android:title="General">
 
         <Preference
-            android:title="@string/theme"
+            android:defaultValue="@string/default_theme"
+            android:icon="@null"
             android:key="app_theme"
-            android:defaultValue="@string/light_theme"
-            android:summary="@string/default_summary"/>
+            android:summary="@string/default_summary"
+            android:title="@string/theme" />
+
+        <Preference
+            android:defaultValue="false"
+            android:icon="@null"
+            android:key="premium_account"
+            android:summary="@string/donate_summary"
+            android:title="@string/donate" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="About" >
+    <PreferenceCategory
+        android:icon="@null"
+        android:title="About">
 
         <Preference
-            android:title="@string/donate"
-            android:key="premium_account"
-            android:summary="@string/donate_summary" />
-
-        <Preference
-            android:title="@string/send_feedback"
+            android:icon="@null"
             android:key="send_feedback"
-            android:summary="@string/send_feedback_summary" />
+            android:summary="@string/send_feedback_summary"
+            android:title="@string/send_feedback" />
 
         <Preference
-            android:title="@string/app_version"
+            android:icon="@null"
             android:key="app_version"
-            android:summary="1.0.0"/>
+            android:title="@string/app_version" />
 
         <Preference
-            android:title="@string/more_from_dev"
-            android:key="more_from_dev"/>
+            android:icon="@null"
+            android:key="more_from_dev"
+            android:summary="@string/more_from_dev_summary"
+            android:title="@string/more_from_dev" />
 
-        <Preference android:title="Delveloped by Adrian Seraspi" />
+        <Preference
+            android:icon="@null"
+            android:title="Delveloped by Adrian Seraspi" />
 
     </PreferenceCategory>
 
