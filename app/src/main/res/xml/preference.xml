@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="General">
+
+        <Preference
+            android:title="@string/theme"
+            android:key="app_theme"
+            android:defaultValue="@string/light_theme"
+            android:summary="@string/default_summary"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="About" >
+
+        <Preference
+            android:title="@string/donate"
+            android:key="premium_account"
+            android:summary="@string/donate_summary" />
+
+        <Preference
+            android:title="@string/send_feedback"
+            android:key="send_feedback"
+            android:summary="@string/send_feedback_summary" />
+
+        <Preference
+            android:title="@string/app_version"
+            android:key="app_version"
+            android:summary="1.0.0"/>
+
+        <Preference
+            android:title="@string/more_from_dev"
+            android:key="more_from_dev"/>
+
+        <Preference android:title="Delveloped by Adrian Seraspi" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
