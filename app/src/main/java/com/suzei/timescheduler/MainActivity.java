@@ -1,6 +1,7 @@
 package com.suzei.timescheduler;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +14,10 @@ import com.suzei.timescheduler.util.AppTheme;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.main_fab) FloatingActionButton fabView;
     @BindView(R.id.main_list) RecyclerView listScheduleList;
 
     @Override
@@ -45,5 +46,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.main_fab)
+    public void onAddClick() {
+        FullscreenDialogEditor dialogEditor = new FullscreenDialogEditor(MainActivity.this);
+        dialogEditor.show();
     }
 }

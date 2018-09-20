@@ -120,23 +120,18 @@ public class ListThemeDialog extends Dialog {
             textView.setText(text);
             themeImage.setImageResource(image);
 
-            if (!isPurchased) {
-                itemView.setAlpha(0.5f);
-                return;
-            }
+//            if (!isPurchased) {
+//                itemView.setAlpha(0.5f);
+//                return;
+//            }
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    SharedPreferences.Editor editor = PreferenceManager
-                            .getDefaultSharedPreferences(getContext()).edit();
-                    editor.putString("app_theme", text);
-                    editor.apply();
-                    callback.onItemClick(text);
-                    dismiss();
-                }
-
+            itemView.setOnClickListener(v -> {
+                SharedPreferences.Editor editor = PreferenceManager
+                        .getDefaultSharedPreferences(getContext()).edit();
+                editor.putString("app_theme", text);
+                editor.apply();
+                callback.onItemClick(text);
+                dismiss();
             });
         }
 

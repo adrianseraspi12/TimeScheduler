@@ -27,4 +27,8 @@
     <string name="default_summary">Default Theme</string>
     <string name="settings">Settings</string>
     <string name="more_from_dev_summary">Support my other apps</string>
+    <string name="close">Close</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="from">From</string>
+    <string name="alarm_tone">Alarm tone</string>
 </resources>

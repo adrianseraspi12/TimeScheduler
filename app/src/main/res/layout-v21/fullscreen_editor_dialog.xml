@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/create_schedule_menu"
+        android:id="@+id/editor_menu"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         app:cardBackgroundColor="@color/colorPrimary"
@@ -19,25 +19,26 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/create_schedule_back"
+                android:id="@+id/editor_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dimens_medium"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/back"
-                android:padding="@dimen/dimens_medium"
-                android:src="@drawable/back_arrow" />
+                android:contentDescription="@string/close"
+                android:padding="@dimen/dimens_small"
+                android:src="@drawable/close" />
 
             <TextView
-                android:id="@+id/create_schedule_title"
+                android:id="@+id/editor_title"
                 style="@style/Base.DialogWindowTitle.AppCompat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dimens_xlarge"
                 android:layout_marginStart="@dimen/dimens_xlarge"
-                android:layout_toEndOf="@id/create_schedule_back"
+                android:layout_toEndOf="@id/editor_close"
                 android:layout_toStartOf="@id/editor_save"
                 android:text="@string/create_schedule"
                 android:textColor="@android:color/white" />
@@ -52,7 +53,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="@dimen/dimens_medium"
+                android:padding="@dimen/dimens_small"
                 android:text="@string/save"
                 android:textColor="@android:color/white" />
 
@@ -69,10 +70,10 @@
         android:layout_marginTop="@dimen/dimens_xlarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_schedule_menu">
+        app:layout_constraintTop_toBottomOf="@+id/editor_menu">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/create_schedule_name"
+            android:id="@+id/editor_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name"
@@ -99,11 +100,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimens_large"
             android:layout_weight="1"
-            android:background="@drawable/rounded_corner_background"
             android:gravity="center"
             android:padding="@dimen/dimens_medium"
-            android:text="@string/s"
-            android:textColor="@android:color/black" />
+            android:text="@string/s" />
 
         <TextView
             android:id="@+id/editor_monday"
@@ -113,8 +112,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/dimens_medium"
-            android:text="@string/m"
-            android:textColor="@android:color/black" />
+            android:text="@string/m" />
 
         <TextView
             android:id="@+id/editor_tuesday"
@@ -124,8 +122,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/dimens_medium"
-            android:text="@string/t"
-            android:textColor="@android:color/black" />
+            android:text="@string/t" />
 
         <TextView
             android:id="@+id/editor_wednesday"
@@ -135,8 +132,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/dimens_medium"
-            android:text="@string/w"
-            android:textColor="@android:color/black" />
+            android:text="@string/w" />
 
         <TextView
             android:id="@+id/editor_thursday"
@@ -146,8 +142,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/dimens_medium"
-            android:text="@string/t"
-            android:textColor="@android:color/black" />
+            android:text="@string/t" />
 
         <TextView
             android:id="@+id/editor_friday"
@@ -157,8 +152,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/dimens_medium"
-            android:text="@string/f"
-            android:textColor="@android:color/black" />
+            android:text="@string/f" />
 
         <TextView
             android:id="@+id/editor_saturday"
@@ -167,45 +161,24 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/dimens_medium"
-            android:text="@string/s"
-            android:textColor="@android:color/black" />
+            android:text="@string/s" />
 
     </TableRow>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/editor_time"
+        style="@style/Base.Widget.AppCompat.Spinner"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dimens_medium"
         android:layout_marginStart="@dimen/dimens_xlarge"
         android:layout_marginTop="@dimen/dimens_medium"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingBottom="@dimen/dimens_medium"
+        android:paddingEnd="24dp"
+        android:paddingStart="@dimen/dimens_medium"
+        android:paddingTop="@dimen/dimens_medium"
+        android:text="@string/time"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_schedule_day_pick_layout">
-
-        <TextView
-            android:id="@+id/editor_notif_sound"
-            style="@style/Base.Widget.AppCompat.Spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:drawablePadding="@dimen/dimens_medium"
-            android:drawableStart="@drawable/notif_bell"
-            android:padding="@dimen/dimens_medium"
-            android:text="@string/cesium"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/editor_time"
-            style="@style/Base.Widget.AppCompat.Spinner"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="@dimen/dimens_medium"
-            android:text="@string/time"
-            android:textColor="@android:color/black" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/create_schedule_day_pick_layout" />
 
 </android.support.constraint.ConstraintLayout>

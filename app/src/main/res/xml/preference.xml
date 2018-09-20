@@ -7,6 +7,10 @@
         android:title="General">
 
         <Preference
+            android:key="alarm_tone"
+            android:title="@string/alarm_tone"/>
+
+        <Preference
             android:defaultValue="@string/default_theme"
             android:icon="@null"
             android:key="app_theme"
