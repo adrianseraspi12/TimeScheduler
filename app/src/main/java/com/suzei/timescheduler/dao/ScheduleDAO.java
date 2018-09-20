@@ -18,7 +18,7 @@ import timber.log.Timber;
 
 public class ScheduleDAO extends CrudImplementation<Schedule> {
 
-    private DAOCallback callbacks;
+    private Listener callbacks;
 
     private String[] allColumns = {
             TimeScheduleEntry.KEY_ID,
@@ -27,7 +27,7 @@ public class ScheduleDAO extends CrudImplementation<Schedule> {
             TimeScheduleEntry.COLUMN_ACTIVE,
             TimeScheduleEntry.COLUMN_DAY_ID};
 
-    public ScheduleDAO(Context context, DAOCallback callbacks) {
+    public ScheduleDAO(Context context, Listener callbacks) {
         super(context);
         this.callbacks = callbacks;
     }

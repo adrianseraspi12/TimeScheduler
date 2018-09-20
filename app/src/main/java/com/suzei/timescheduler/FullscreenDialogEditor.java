@@ -14,7 +14,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.suzei.timescheduler.dao.DAOCallback;
+import com.suzei.timescheduler.dao.CrudImplementation;
 import com.suzei.timescheduler.dao.ScheduleDAO;
 import com.suzei.timescheduler.dao.TimeSchedulerContract;
 import com.suzei.timescheduler.model.Day;
@@ -28,9 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-class FullscreenDialogEditor extends Dialog implements DAOCallback {
-
-    public static final int PICK_ALARM_TONE = 5;
+class FullscreenDialogEditor extends Dialog implements CrudImplementation.Listener {
 
     private Activity activity;
 

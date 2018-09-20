@@ -38,5 +38,11 @@ public abstract class CrudImplementation<T> {
 
     public abstract void delete(T model);
 
+    public interface Listener {
 
+        void onSuccess();
+
+        void onFailed();
+
+    }
 }
