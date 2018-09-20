@@ -3,21 +3,22 @@ package com.suzei.timescheduler;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.CardView;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.suzei.timescheduler.dao.DAOCallback;
+import com.suzei.timescheduler.dao.ScheduleDAO;
+import com.suzei.timescheduler.dao.TimeSchedulerContract;
+import com.suzei.timescheduler.model.Day;
+import com.suzei.timescheduler.model.Schedule;
 import com.suzei.timescheduler.util.AppTheme;
 
 import java.util.Calendar;
@@ -26,15 +27,12 @@ import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
-class FullscreenDialogEditor extends Dialog {
+class FullscreenDialogEditor extends Dialog implements DAOCallback {
 
     public static final int PICK_ALARM_TONE = 5;
 
     private Activity activity;
-    private boolean isDarkTheme;
-    private String alarmTone;
 
     @BindDrawable(R.drawable.rounded_corner_background) Drawable cornerDrawable;
     @BindView(R.id.editor_menu) CardView menuView;
@@ -50,20 +48,12 @@ class FullscreenDialogEditor extends Dialog {
     @BindView(R.id.editor_time) TextView timeView;
 
     FullscreenDialogEditor(@NonNull Activity a) {
-        super(a, AppTheme.getFullscreenDialogStyle(a.getApplicationContext()));
+        super(a, AppTheme.getFullscreenDialogStyle(a));
         setContentView(R.layout.fullscreen_editor_dialog);
         this.activity = a;
         ButterKnife.bind(this, this);
-        checkIfDarkTheme();
         setStatusBarColor();
         setUpUi();
-    }
-
-    private void checkIfDarkTheme() {
-        String theme = PreferenceManager
-                .getDefaultSharedPreferences(getContext())
-                .getString("app_theme", "Default Theme");
-        isDarkTheme = AppTheme.isDarkTheme(theme);
     }
 
     private void setStatusBarColor() {
@@ -93,6 +83,12 @@ class FullscreenDialogEditor extends Dialog {
         setBackgound(textView);
     }
 
+    @OnClick(R.id.editor_save)
+    public void onSaveClick() {
+        ScheduleDAO scheduleDAO = new ScheduleDAO(getContext(), this);
+        scheduleDAO.create(getSchedule());
+    }
+
     @OnClick(R.id.editor_time)
     public void onTimeClick() {
         Calendar currentTime = Calendar.getInstance();
@@ -116,5 +112,37 @@ class FullscreenDialogEditor extends Dialog {
         } else {
             textView.setBackground(cornerDrawable);
         }
+    }
+
+    private Schedule getSchedule() {
+        Day day = new Day(getSelectedDay(sundayView),
+                getSelectedDay(mondayView), getSelectedDay(tuesdayView),
+                getSelectedDay(wednesdayView), getSelectedDay(thursdayView),
+                getSelectedDay(fridayView), getSelectedDay(saturdayView));
+
+        String name = nameView.getText().toString().trim();
+        String time = timeView.getText().toString().trim();
+        int active = TimeSchedulerContract.TimeScheduleEntry.TRUE;
+
+        return new Schedule(name, time, active, day);
+    }
+
+    private int getSelectedDay(TextView textView) {
+        if (isSelected(textView)) {
+            return TimeSchedulerContract.TimeScheduleEntry.TRUE;
+        } else {
+            return TimeSchedulerContract.TimeScheduleEntry.FALSE;
+        }
+    }
+
+    @Override
+    public void onSuccess() {
+        dismiss();
+    }
+
+    @Override
+    public void onFailed() {
+        Toast.makeText(getContext(), "Failed to save the schedule, Please try again",
+                Toast.LENGTH_SHORT).show();
     }
 }
