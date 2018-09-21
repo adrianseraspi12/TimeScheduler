@@ -1,16 +1,22 @@
-package com.suzei.timescheduler;
+package com.suzei.timescheduler.ui;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.suzei.timescheduler.R;
+import com.suzei.timescheduler.adapter.ScheduleAdapter;
+import com.suzei.timescheduler.model.Schedule;
 import com.suzei.timescheduler.preference.SettingsActivity;
 import com.suzei.timescheduler.util.AppTheme;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,10 +32,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initObjects();
+        setUpRecyclerView();
     }
 
     private void initObjects() {
         ButterKnife.bind(this);
+    }
+
+    private void setUpRecyclerView() {
+        LinearLayoutManager llm = new LinearLayoutManager(MainActivity.this);
+        listScheduleList.setLayoutManager(llm);
+        listScheduleList.setHasFixedSize(true);
+        listScheduleList.addItemDecoration(new DividerItemDecoration(
+                MainActivity.this, llm.getOrientation()));
     }
 
     @Override
@@ -50,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.main_fab)
     public void onAddClick() {
-        FullscreenDialogEditor dialogEditor = new FullscreenDialogEditor(MainActivity.this);
+        CreateScheduleDialog dialogEditor = new CreateScheduleDialog(MainActivity.this);
         dialogEditor.show();
     }
 }

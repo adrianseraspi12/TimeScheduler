@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import com.suzei.timescheduler.dao.CrudImplementation;
-import com.suzei.timescheduler.dao.ScheduleDAO;
 import com.suzei.timescheduler.model.Schedule;
 
 public class EditScheduleDialog extends FullscreenDialogEditor implements

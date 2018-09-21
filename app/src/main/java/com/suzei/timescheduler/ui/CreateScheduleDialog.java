@@ -2,11 +2,8 @@ package com.suzei.timescheduler.ui;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.suzei.timescheduler.dao.CrudImplementation;
-import com.suzei.timescheduler.dao.ScheduleDAO;
 import com.suzei.timescheduler.model.Schedule;
 
 class CreateScheduleDialog extends FullscreenDialogEditor implements CrudImplementation.Listener {

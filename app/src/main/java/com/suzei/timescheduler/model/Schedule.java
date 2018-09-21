@@ -1,33 +1,41 @@
 package com.suzei.timescheduler.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
+@Entity
 public class Schedule {
 
-    private long _id;
-    private String name, time;
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @ColumnInfo(name = "name")
+    private String name;
+
+    @ColumnInfo(name = "time")
+    private String time;
+
+    @ColumnInfo(name = "active")
     private int active;
-    private Day day;
 
-    public Schedule(long _id, String name, String time, int active, Day day) {
-        this._id = _id;
+    public Schedule(String name, String time, int active) {
         this.name = name;
         this.time = time;
         this.active = active;
-        this.day = day;
     }
 
-    public Schedule(String name, String time, int active, Day day) {
-        this.name = name;
-        this.time = time;
-        this.active = active;
-        this.day = day;
+    public int getId() {
+        return id;
     }
 
-    public long get_id() {
-        return _id;
-    }
-
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -54,11 +62,4 @@ public class Schedule {
         this.active = active;
     }
 
-    public Day getDay() {
-        return day;
-    }
-
-    public void setDay(Day day) {
-        this.day = day;
-    }
 }

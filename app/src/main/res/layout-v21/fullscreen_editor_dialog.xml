@@ -82,103 +82,34 @@
     </android.support.design.widget.TextInputLayout>
 
 
-    <TableRow
-        android:id="@+id/create_schedule_day_pick_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
         android:layout_marginEnd="@dimen/dimens_medium"
         android:layout_marginStart="@dimen/dimens_xlarge"
         android:layout_marginTop="@dimen/dimens_medium"
-        android:weightSum="7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_schedule_text_layout">
 
         <TextView
-            android:id="@+id/editor_sunday"
+            android:id="@+id/editor_time"
+            style="@style/Base.Widget.AppCompat.Spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimens_large"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_toStartOf="@id/editor_switch"
             android:padding="@dimen/dimens_medium"
-            android:text="@string/s" />
+            android:paddingTop="@dimen/dimens_medium"
+            android:text="@string/time" />
 
-        <TextView
-            android:id="@+id/editor_monday"
+        <Switch
+            android:id="@+id/editor_switch"
+            android:padding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimens_large"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="@dimen/dimens_medium"
-            android:text="@string/m" />
+            android:text="@string/active"/>
 
-        <TextView
-            android:id="@+id/editor_tuesday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimens_large"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="@dimen/dimens_medium"
-            android:text="@string/t" />
-
-        <TextView
-            android:id="@+id/editor_wednesday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimens_large"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="@dimen/dimens_medium"
-            android:text="@string/w" />
-
-        <TextView
-            android:id="@+id/editor_thursday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimens_large"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="@dimen/dimens_medium"
-            android:text="@string/t" />
-
-        <TextView
-            android:id="@+id/editor_friday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimens_large"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="@dimen/dimens_medium"
-            android:text="@string/f" />
-
-        <TextView
-            android:id="@+id/editor_saturday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="@dimen/dimens_medium"
-            android:text="@string/s" />
-
-    </TableRow>
-
-    <TextView
-        android:id="@+id/editor_time"
-        style="@style/Base.Widget.AppCompat.Spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dimens_medium"
-        android:layout_marginStart="@dimen/dimens_xlarge"
-        android:layout_marginTop="@dimen/dimens_medium"
-        android:paddingBottom="@dimen/dimens_medium"
-        android:paddingEnd="24dp"
-        android:paddingStart="@dimen/dimens_medium"
-        android:paddingTop="@dimen/dimens_medium"
-        android:text="@string/time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_schedule_day_pick_layout" />
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

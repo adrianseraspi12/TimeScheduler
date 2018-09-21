@@ -12,11 +12,10 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.CardView;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.suzei.timescheduler.R;
-import com.suzei.timescheduler.dao.TimeSchedulerContract;
-import com.suzei.timescheduler.model.Day;
 import com.suzei.timescheduler.model.Schedule;
 import com.suzei.timescheduler.util.AppTheme;
 
@@ -37,14 +36,8 @@ public abstract class FullscreenDialogEditor extends Dialog {
     @BindView(R.id.editor_menu) CardView menuView;
     @BindView(R.id.editor_title) TextView titleView;
     @BindView(R.id.editor_name) TextInputEditText nameView;
-    @BindView(R.id.editor_sunday) TextView sundayView;
-    @BindView(R.id.editor_monday) TextView mondayView;
-    @BindView(R.id.editor_tuesday) TextView tuesdayView;
-    @BindView(R.id.editor_wednesday) TextView wednesdayView;
-    @BindView(R.id.editor_thursday) TextView thursdayView;
-    @BindView(R.id.editor_friday) TextView fridayView;
-    @BindView(R.id.editor_saturday) TextView saturdayView;
     @BindView(R.id.editor_time) TextView timeView;
+    @BindView(R.id.editor_switch) Switch activeView;
 
     public FullscreenDialogEditor(@NonNull Activity a) {
         super(a, AppTheme.getFullscreenDialogStyle(a));
@@ -101,7 +94,7 @@ public abstract class FullscreenDialogEditor extends Dialog {
 
     @OnClick(R.id.editor_save)
     void onGetData() {
-        onSaveClick(getSchedule());
+//        onSaveClick();
     }
 
     @OnClick({R.id.editor_sunday, R.id.editor_monday, R.id.editor_tuesday, R.id.editor_wednesday,
@@ -124,27 +117,6 @@ public abstract class FullscreenDialogEditor extends Dialog {
 
         timePicker.setTitle("Select Time");
         timePicker.show();
-    }
-
-    private Schedule getSchedule() {
-        Day day = new Day(getSelectedDay(sundayView),
-                getSelectedDay(mondayView), getSelectedDay(tuesdayView),
-                getSelectedDay(wednesdayView), getSelectedDay(thursdayView),
-                getSelectedDay(fridayView), getSelectedDay(saturdayView));
-
-        String name = nameView.getText().toString().trim();
-        String time = timeView.getText().toString().trim();
-        int active = TimeSchedulerContract.TimeScheduleEntry.TRUE;
-
-        return new Schedule(name, time, active, day);
-    }
-
-    private int getSelectedDay(TextView textView) {
-        if (isDaySelected(textView)) {
-            return TimeSchedulerContract.TimeScheduleEntry.TRUE;
-        } else {
-            return TimeSchedulerContract.TimeScheduleEntry.FALSE;
-        }
     }
 
     protected abstract void onSaveClick(Schedule schedule);
