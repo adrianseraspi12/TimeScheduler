@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.main_fab)
     public void onAddClick() {
-        CreateScheduleDialog dialogEditor = new CreateScheduleDialog(MainActivity.this);
-        dialogEditor.show();
+        
     }
 }

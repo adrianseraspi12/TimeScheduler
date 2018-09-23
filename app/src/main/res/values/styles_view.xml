@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Text">
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Text.Primary">
+        <item name="android:textSize">@dimen/textListPrimary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Text.Secondary">
+        <item name="android:textSize">@dimen/textListSecondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+</resources>

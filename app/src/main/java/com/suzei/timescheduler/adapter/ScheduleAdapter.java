@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.suzei.timescheduler.R;
 import com.suzei.timescheduler.database.Schedule;
-import com.suzei.timescheduler.view.EditScheduleDialog;
 
 import java.util.List;
 
