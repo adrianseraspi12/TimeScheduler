@@ -11,6 +11,10 @@ public class ScheduleRepository {
 
     private ScheduleDao scheduleDao;
 
+    public ScheduleRepository(ScheduleDao scheduleDao) {
+        this.scheduleDao = scheduleDao;
+    }
+
     public void createSchedule(Schedule schedule) {
         scheduleDao.createSchedule(schedule);
     }

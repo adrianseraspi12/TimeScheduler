@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.suzei.timescheduler.database.Schedule;
 import com.suzei.timescheduler.util.FullscreenDialogEditor;
 
-class CreateScheduleDialog extends FullscreenDialogEditor implements CrudImplementation.Listener {
+class CreateScheduleDialog extends FullscreenDialogEditor {
 
     private Activity activity;
 
@@ -19,19 +19,7 @@ class CreateScheduleDialog extends FullscreenDialogEditor implements CrudImpleme
 
     @Override
     protected void onSaveClick(Schedule schedule) {
-        ScheduleDAO scheduleDAO = new ScheduleDAO(activity, this);
-        scheduleDAO.create(schedule);
-    }
 
-    @Override
-    public void onSuccess() {
-        dismiss();
-    }
-
-    @Override
-    public void onFailed() {
-        Toast.makeText(getContext(), "Failed to save the schedule, Please try again",
-                Toast.LENGTH_SHORT).show();
     }
 
 }

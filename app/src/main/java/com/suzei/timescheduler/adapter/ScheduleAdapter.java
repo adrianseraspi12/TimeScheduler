@@ -65,10 +65,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         void bind(Schedule schedule) {
             titleView.setText(schedule.getName());
             timeView.setText(schedule.getStartTime());
-            dayView.setText(getDay(schedule.getDay()));
             setItemClickListener(schedule);
-            setSwitchListener(schedule.getActive());
-            setDeleteClickListener(schedule.get_id());
         }
 
         private void setItemClickListener(Schedule schedule) {
@@ -92,59 +89,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                     Toast.makeText(itemView.getContext(), "Deleted", Toast.LENGTH_SHORT).show();
                 }
             });
-        }
-
-        private void setSwitchListener(int active) {
-            if (active == TimeSchedulerContract.TimeScheduleEntry.TRUE) {
-                switchView.setChecked(true);
-            }
-
-            switchView.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
-                if (isChecked) {
-                    Toast.makeText(itemView.getContext(), "Checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(itemView.getContext(), "Not Checked", Toast.LENGTH_SHORT).show();
-                }
-
-            });
-        }
-
-        private String getDay(Day day) {
-            StringBuilder builder = new StringBuilder();
-            if (isActive(day.getSunday())) {
-                builder.append("S ");
-            }
-
-            if (isActive(day.getMonday())) {
-                builder.append("M ");
-            }
-
-            if (isActive(day.getTuesday())) {
-                builder.append("T ");
-            }
-
-            if (isActive(day.getWednesday())) {
-                builder.append("W ");
-            }
-
-            if (isActive(day.getThursday())) {
-                builder.append("T ");
-            }
-
-            if (isActive(day.getFriday())) {
-                builder.append("F ");
-            }
-
-            if (isActive(day.getSaturday())) {
-                builder.append("S");
-            }
-
-            return builder.toString();
-        }
-
-        private boolean isActive(int day) {
-            return day == TimeSchedulerContract.TimeScheduleEntry.TRUE;
         }
     }
 
