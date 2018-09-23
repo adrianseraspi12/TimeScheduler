@@ -1,10 +1,8 @@
-package com.suzei.timescheduler.ui;
+package com.suzei.timescheduler.util;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,16 +10,13 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.CardView;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.suzei.timescheduler.R;
-import com.suzei.timescheduler.model.Schedule;
-import com.suzei.timescheduler.util.AppTheme;
+import com.suzei.timescheduler.database.Schedule;
 
 import java.util.Calendar;
 
-import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,12 +27,11 @@ public abstract class FullscreenDialogEditor extends Dialog {
     private int hour;
     private int minute;
 
-    @BindDrawable(R.drawable.rounded_corner_background) Drawable cornerDrawable;
     @BindView(R.id.editor_menu) CardView menuView;
     @BindView(R.id.editor_title) TextView titleView;
     @BindView(R.id.editor_name) TextInputEditText nameView;
-    @BindView(R.id.editor_time) TextView timeView;
-    @BindView(R.id.editor_switch) Switch activeView;
+    @BindView(R.id.editor_start_time) TextView startTimeView;
+    @BindView(R.id.editor_end_time) TextView endTimeView;
 
     public FullscreenDialogEditor(@NonNull Activity a) {
         super(a, AppTheme.getFullscreenDialogStyle(a));
@@ -52,8 +46,6 @@ public abstract class FullscreenDialogEditor extends Dialog {
         setContentView(R.layout.fullscreen_editor_dialog);
         ButterKnife.bind(this, this);
         menuView.setCardBackgroundColor(AppTheme.getAttrColor(activity, R.attr.colorPrimary));
-        cornerDrawable.setColorFilter(AppTheme.getAttrColor(activity, R.attr.colorAccent),
-                PorterDuff.Mode.SRC_IN);
     }
 
     private void setStatusBarColor() {
@@ -75,7 +67,7 @@ public abstract class FullscreenDialogEditor extends Dialog {
     }
 
     public void setTime(String time) {
-        timeView.setText(time);
+        startTimeView.setText(time);
 
         String[] timeArray = time.split(":");
         this.hour = Integer.parseInt(timeArray[0].trim());
@@ -97,22 +89,12 @@ public abstract class FullscreenDialogEditor extends Dialog {
 //        onSaveClick();
     }
 
-    @OnClick({R.id.editor_sunday, R.id.editor_monday, R.id.editor_tuesday, R.id.editor_wednesday,
-            R.id.editor_thursday, R.id.editor_friday, R.id.editor_saturday})
-    public void onSelectWeekClick(TextView textView) {
-        if (isDaySelected(textView)) {
-            textView.setBackground(null);
-        } else {
-            textView.setBackground(cornerDrawable);
-        }
-    }
-
-    @OnClick(R.id.editor_time)
+    @OnClick({R.id.editor_start_time, R.id.editor_end_time})
     public void onTimeClick() {
         TimePickerDialog timePicker = new TimePickerDialog(
                 getContext(),
                 (view, hourOfDay, minute1) ->
-                        timeView.setText(String.format("%02d:%02d", hourOfDay, minute1)),
+                        startTimeView.setText(String.format("%02d:%02d", hourOfDay, minute1)),
                 hour, minute, true);
 
         timePicker.setTitle("Select Time");

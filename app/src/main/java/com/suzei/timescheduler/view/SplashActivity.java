@@ -1,4 +1,4 @@
-package com.suzei.timescheduler.ui;
+package com.suzei.timescheduler.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

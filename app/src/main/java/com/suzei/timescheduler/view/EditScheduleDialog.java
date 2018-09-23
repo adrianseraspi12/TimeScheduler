@@ -1,10 +1,11 @@
-package com.suzei.timescheduler.ui;
+package com.suzei.timescheduler.view;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import com.suzei.timescheduler.model.Schedule;
+import com.suzei.timescheduler.database.Schedule;
+import com.suzei.timescheduler.util.FullscreenDialogEditor;
 
 public class EditScheduleDialog extends FullscreenDialogEditor implements
         CrudImplementation.Listener {

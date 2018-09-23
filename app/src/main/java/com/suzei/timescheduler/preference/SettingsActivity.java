@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.suzei.timescheduler.ui.MainActivity;
+import com.suzei.timescheduler.view.MainActivity;
 import com.suzei.timescheduler.util.AppTheme;
 
 public class SettingsActivity extends AppCompatActivity {

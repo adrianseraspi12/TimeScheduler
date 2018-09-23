@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.suzei.timescheduler.R;
-import com.suzei.timescheduler.model.Schedule;
-import com.suzei.timescheduler.ui.EditScheduleDialog;
+import com.suzei.timescheduler.database.Schedule;
+import com.suzei.timescheduler.view.EditScheduleDialog;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
         void bind(Schedule schedule) {
             titleView.setText(schedule.getName());
-            timeView.setText(schedule.getTime());
+            timeView.setText(schedule.getStartTime());
             dayView.setText(getDay(schedule.getDay()));
             setItemClickListener(schedule);
             setSwitchListener(schedule.getActive());
@@ -78,7 +78,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                 public void onClick(View v) {
                     EditScheduleDialog editDialog = new EditScheduleDialog(activity);
                     editDialog.setName(schedule.getName());
-                    editDialog.setTime(schedule.getTime());
+                    editDialog.setTime(schedule.getStartTime());
                     editDialog.show();
                 }
 

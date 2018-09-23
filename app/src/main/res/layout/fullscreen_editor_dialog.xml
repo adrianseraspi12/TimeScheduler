@@ -79,35 +79,36 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_marginEnd="@dimen/dimens_medium"
         android:layout_marginStart="@dimen/dimens_xlarge"
         android:layout_marginTop="@dimen/dimens_medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_schedule_text_layout">
 
         <TextView
-            android:id="@+id/editor_time"
+            android:id="@+id/editor_start_time"
             style="@style/Base.Widget.AppCompat.Spinner"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_toStartOf="@id/editor_switch"
+            android:layout_weight="1"
             android:padding="@dimen/dimens_medium"
-            android:paddingTop="@dimen/dimens_medium"
-            android:text="@string/time" />
+            android:text="@string/start_time" />
 
-        <Switch
-            android:id="@+id/editor_switch"
-            android:padding="8dp"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/editor_end_time"
+            style="@style/Base.Widget.AppCompat.Spinner"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/active"/>
+            android:padding="@dimen/dimens_medium"
+            android:layout_weight="1"
+            android:text="@string/end_time"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 

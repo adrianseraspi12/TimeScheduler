@@ -1,4 +1,4 @@
-package com.suzei.timescheduler.ui;
+package com.suzei.timescheduler;
 
 import android.app.Application;
 

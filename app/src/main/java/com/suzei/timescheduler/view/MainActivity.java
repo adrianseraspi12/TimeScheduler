@@ -1,4 +1,4 @@
-package com.suzei.timescheduler.ui;
+package com.suzei.timescheduler.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,15 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.suzei.timescheduler.R;
-import com.suzei.timescheduler.adapter.ScheduleAdapter;
-import com.suzei.timescheduler.model.Schedule;
 import com.suzei.timescheduler.preference.SettingsActivity;
 import com.suzei.timescheduler.util.AppTheme;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

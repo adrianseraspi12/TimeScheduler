@@ -1,12 +1,8 @@
-package com.suzei.timescheduler.model;
+package com.suzei.timescheduler.database;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-
-import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity
 public class Schedule {
@@ -15,18 +11,18 @@ public class Schedule {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "time")
-    private String time;
+    private String startTime;
 
-    @ColumnInfo(name = "active")
+    private String endTime;
+
     private int active;
 
-    public Schedule(String name, String time, int active) {
+    public Schedule(String name, String startTime, String endTime, int active) {
         this.name = name;
-        this.time = time;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.active = active;
     }
 
@@ -46,12 +42,20 @@ public class Schedule {
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public int getActive() {

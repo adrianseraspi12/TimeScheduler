@@ -10,7 +10,7 @@
     <string name="t">T</string>
     <string name="w">W</string>
     <string name="f">F</string>
-    <string name="time">Time</string>
+    <string name="startTime">Time</string>
     <string name="cesium">Cesium</string>
     <string name="delete">delete</string>
     <string name="back">back</string>
@@ -29,7 +29,8 @@
     <string name="more_from_dev_summary">Support my other apps</string>
     <string name="close">Close</string>
     <string name="vibrate">Vibrate</string>
-    <string name="from">From</string>
+    <string name="start_time">Start startTime</string>
+    <string name="end_time">End startTime</string>
     <string name="alarm_tone">Alarm tone</string>
     <string name="active">Active</string>
 </resources>
