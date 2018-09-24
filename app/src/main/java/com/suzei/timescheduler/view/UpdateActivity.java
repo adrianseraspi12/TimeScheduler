@@ -17,6 +17,7 @@ import com.suzei.timescheduler.R;
 import com.suzei.timescheduler.TimeSchedule;
 import com.suzei.timescheduler.database.ScheduleEntity;
 import com.suzei.timescheduler.util.AppTheme;
+import com.suzei.timescheduler.viewmodel.ScheduleCollectionViewModel;
 import com.suzei.timescheduler.viewmodel.UpsertScheduleViewModel;
 
 import java.util.Calendar;
@@ -27,17 +28,23 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
-public class CreateActivity extends AppCompatActivity {
+public class UpdateActivity extends AppCompatActivity {
+
+    public static final String EXTRA_ID = "EXTRA_ID";
 
     @Inject
     ViewModelProvider.Factory viewModelProvider;
 
-    private UpsertScheduleViewModel upsertScheduleViewModel;
+    private UpsertScheduleViewModel updateScheduleViewModel;
+    private ScheduleCollectionViewModel scheduleItemViewModel;
 
-    @BindString(R.string.select_time) String selectTimeString;
-    @BindString(R.string.create_schedule) String createScheduleString;
+    private String rowId;
+
+    @BindString(R.string.edit_schedule) String editScheduleString;
     @BindString(R.string.empty_time) String emptyTimeString;
+    @BindString(R.string.select_time) String selectTimeString;
     @BindString(R.string.time_is_not_correct) String timeIsNotCorrectString;
     @BindString(R.string.start_time) String startTimeString;
     @BindString(R.string.end_time) String endTimeString;
@@ -47,13 +54,14 @@ public class CreateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppTheme.set(CreateActivity.this);
+        AppTheme.set(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
         initObjects();
         setUpDagger();
         setUpViewModel();
         setUpToolbar();
+        setUpScheduleItem();
     }
 
     private void initObjects() {
@@ -67,16 +75,33 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     private void setUpViewModel() {
-        upsertScheduleViewModel = ViewModelProviders
+        updateScheduleViewModel = ViewModelProviders
                 .of(this, viewModelProvider)
                 .get(UpsertScheduleViewModel.class);
+
+        scheduleItemViewModel = ViewModelProviders
+                .of(this, viewModelProvider)
+                .get(ScheduleCollectionViewModel.class);
     }
 
     private void setUpToolbar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(createScheduleString);
+        actionBar.setTitle(editScheduleString);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setUpScheduleItem() {
+        rowId = getIntent().getStringExtra(EXTRA_ID);
+        scheduleItemViewModel.getScheduleById(rowId).observe(this, schedule -> {
+
+            nameView.setText(schedule.getName());
+            startTimeView.setText(schedule.getStartTime());
+            endTimeView.setText(schedule.getEndTime());
+
+        });
+
+        Timber.i("Item Id= %s", rowId);
     }
 
     @Override
@@ -87,25 +112,24 @@ public class CreateActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (item.getItemId() == R.id.menu_save) {
-            //  save all data
-            if (isTimeCorrect()) {
+            //  Save data
+            if (istTimeCorrect()) {
                 ScheduleEntity scheduleEntity = new ScheduleEntity(
+                        rowId,
                         getString(nameView),
                         getString(startTimeView),
                         getString(endTimeView),
-                        TimeSchedule.ACTIVE
-                );
+                        TimeSchedule.ACTIVE);
 
-                upsertScheduleViewModel.upsertSchedule(scheduleEntity);
-                Intent intent = new Intent(CreateActivity.this, MainActivity.class);
+                updateScheduleViewModel.upsertSchedule(scheduleEntity);
+                Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
             }
-        }
 
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -131,12 +155,12 @@ public class CreateActivity extends AppCompatActivity {
         return textView.getText().toString().trim();
     }
 
-    private boolean isTimeCorrect() {
+    private boolean istTimeCorrect() {
         String startTime = startTimeView.getText().toString();
         String endTime = endTimeView.getText().toString();
 
         if (startTime.equals(startTimeString) || endTime.equals(endTimeString)) {
-            Toast.makeText(CreateActivity.this,
+            Toast.makeText(this,
                     emptyTimeString,
                     Toast.LENGTH_SHORT).show();
             return false;

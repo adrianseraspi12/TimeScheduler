@@ -1,36 +1,53 @@
 package com.suzei.timescheduler.database;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.UUID;
+
 @Entity
-public class Schedule {
+public class ScheduleEntity {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    private String id;
 
     private String name;
 
+    @ColumnInfo(name = "start_time")
     private String startTime;
 
+    @ColumnInfo(name = "end_time")
     private String endTime;
 
     private int active;
 
-    public Schedule(String name, String startTime, String endTime, int active) {
+    @Ignore
+    public ScheduleEntity(String name, String startTime, String endTime, int active) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.active = active;
     }
 
-    public int getId() {
+    public ScheduleEntity(@NonNull String id, String name, String startTime, String endTime, int active) {
+        this.id = id;
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.active = active;
+    }
+
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 

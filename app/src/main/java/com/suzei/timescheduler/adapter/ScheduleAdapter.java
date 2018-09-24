@@ -1,32 +1,33 @@
 package com.suzei.timescheduler.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.suzei.timescheduler.R;
 import com.suzei.timescheduler.TimeSchedule;
-import com.suzei.timescheduler.database.Schedule;
+import com.suzei.timescheduler.database.ScheduleEntity;
+import com.suzei.timescheduler.view.UpdateActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
     private Activity activity;
-    private List<Schedule> scheduleList;
+    private List<ScheduleEntity> scheduleEntityList;
 
-    public ScheduleAdapter(Activity activity, List<Schedule> scheduleList) {
-        this.scheduleList = scheduleList;
+    public ScheduleAdapter(Activity activity, List<ScheduleEntity> scheduleEntityList) {
+        this.scheduleEntityList = scheduleEntityList;
         this.activity = activity;
     }
 
@@ -40,20 +41,20 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Schedule schedule = scheduleList.get(i);
-        String time = schedule.getStartTime() + "-" + schedule.getEndTime();
+        ScheduleEntity scheduleEntity = scheduleEntityList.get(i);
+        String time = scheduleEntity.getStartTime() + "-" + scheduleEntity.getEndTime();
 
-        viewHolder.titleView.setText(schedule.getName());
+        viewHolder.titleView.setText(scheduleEntity.getName());
         viewHolder.timeView.setText(time);
 
-        if (schedule.getActive() == TimeSchedule.ACTIVE) {
+        if (scheduleEntity.getActive() == TimeSchedule.ACTIVE) {
             viewHolder.switchView.setChecked(true);
         }
     }
 
     @Override
     public int getItemCount() {
-        return scheduleList.size();
+        return scheduleEntityList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -70,11 +71,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            Schedule schedule = scheduleList.get(getAdapterPosition());
-
-            Toast.makeText(activity.getApplicationContext(),
-                    String.valueOf(schedule.getId()),
-                    Toast.LENGTH_SHORT).show();
+            ScheduleEntity scheduleEntity = scheduleEntityList.get(getAdapterPosition());
+            Intent intent = new Intent(activity, UpdateActivity.class);
+            intent.putExtra(UpdateActivity.EXTRA_ID, scheduleEntity.getId());
+            activity.startActivity(intent);
+            Timber.i("Item Id= %s", String.valueOf(scheduleEntity.getId()));
         }
     }
 

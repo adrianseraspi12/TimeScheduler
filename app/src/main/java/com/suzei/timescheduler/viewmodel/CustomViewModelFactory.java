@@ -18,8 +18,8 @@ public class CustomViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
-        if (modelClass.isAssignableFrom(CreateScheduleViewModel.class)) {
-            return (T) new CreateScheduleViewModel(repository);
+        if (modelClass.isAssignableFrom(UpsertScheduleViewModel.class)) {
+            return (T) new UpsertScheduleViewModel(repository);
         }
 
         else if (modelClass.isAssignableFrom(DeleteAllScheduleViewModel.class)) {
@@ -32,14 +32,6 @@ public class CustomViewModelFactory implements ViewModelProvider.Factory {
 
         else if (modelClass.isAssignableFrom(ScheduleCollectionViewModel.class)) {
             return (T) new ScheduleCollectionViewModel(repository);
-        }
-
-        else if (modelClass.isAssignableFrom(ScheduleItemViewModel.class)) {
-            return (T) new ScheduleItemViewModel(repository);
-        }
-
-        else if (modelClass.isAssignableFrom(UpdateScheduleViewModel.class)) {
-            return (T) new UpdateScheduleViewModel(repository);
         }
 
         else {

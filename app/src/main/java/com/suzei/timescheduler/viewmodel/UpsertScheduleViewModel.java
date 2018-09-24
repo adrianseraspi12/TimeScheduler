@@ -6,29 +6,29 @@ import android.os.AsyncTask;
 import com.suzei.timescheduler.database.ScheduleEntity;
 import com.suzei.timescheduler.database.ScheduleRepository;
 
-public class DeleteScheduleViewModel extends ViewModel {
+public class UpsertScheduleViewModel extends ViewModel {
 
     private ScheduleRepository repository;
 
-    DeleteScheduleViewModel(ScheduleRepository repository) {
+    UpsertScheduleViewModel(ScheduleRepository repository) {
         this.repository = repository;
     }
 
-    public void deleteSchedule(ScheduleEntity scheduleEntity) {
-        new DeleteScheduleItemTask(repository).execute(scheduleEntity);
+    public void upsertSchedule(ScheduleEntity scheduleEntity) {
+        new CreateScheduleTask(repository).execute(scheduleEntity);
     }
 
-    private static class DeleteScheduleItemTask extends AsyncTask<ScheduleEntity, Void, Void> {
+    private static class CreateScheduleTask extends AsyncTask<ScheduleEntity, Void, Void> {
 
         private ScheduleRepository repository;
 
-        DeleteScheduleItemTask(ScheduleRepository repository) {
+        CreateScheduleTask(ScheduleRepository repository) {
             this.repository = repository;
         }
 
         @Override
         protected Void doInBackground(ScheduleEntity... scheduleEntities) {
-            repository.deleteSchedule(scheduleEntities[0]);
+            repository.createSchedule(scheduleEntities[0]);
             return null;
         }
 
