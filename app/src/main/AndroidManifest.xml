@@ -27,7 +27,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.MainActivity" />
         </activity>
-        <activity android:name=".view.EditorActivity"></activity>
+        <activity android:name=".view.CreateActivity"
+            android:parentActivityName=".view.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.MainActivity" />
+        </activity>
+        <activity android:name=".preference.AppCompatPreferenceActivity" />
     </application>
 
 </manifest>

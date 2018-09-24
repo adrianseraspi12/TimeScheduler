@@ -11,6 +11,9 @@ import timber.log.Timber;
 
 public class TimeSchedule extends Application {
 
+    public static final int ACTIVE = 0;
+    public static final int NOT_ACTIVE = 1;
+
     private AppComponent appComponent;
 
     @Override

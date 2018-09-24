@@ -20,8 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Dark Pink"
-        android:layout_gravity="center"
-        style="@style/Text.Primary"/>
+        android:textSize="@dimen/textListPrimary"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
 

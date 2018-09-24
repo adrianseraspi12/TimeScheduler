@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.suzei.timescheduler.R;
+import com.suzei.timescheduler.TimeSchedule;
 import com.suzei.timescheduler.database.Schedule;
 
 import java.util.List;
@@ -40,7 +41,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Schedule schedule = scheduleList.get(i);
-        viewHolder.bind(schedule);
+        String time = schedule.getStartTime() + "-" + schedule.getEndTime();
+
+        viewHolder.titleView.setText(schedule.getName());
+        viewHolder.timeView.setText(time);
+
+        if (schedule.getActive() == TimeSchedule.ACTIVE) {
+            viewHolder.switchView.setChecked(true);
+        }
     }
 
     @Override
@@ -48,46 +56,25 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         return scheduleList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.item_title) TextView titleView;
         @BindView(R.id.item_subtitle1) TextView timeView;
-        @BindView(R.id.item_subtitle2) TextView dayView;
         @BindView(R.id.item_switch) Switch switchView;
-        @BindView(R.id.item_delete) ImageButton deleteView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
-        void bind(Schedule schedule) {
-            titleView.setText(schedule.getName());
-            timeView.setText(schedule.getStartTime());
-            setItemClickListener(schedule);
-        }
+        @Override
+        public void onClick(View v) {
+            Schedule schedule = scheduleList.get(getAdapterPosition());
 
-        private void setItemClickListener(Schedule schedule) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    EditScheduleDialog editDialog = new EditScheduleDialog(activity);
-                    editDialog.setName(schedule.getName());
-                    editDialog.setTime(schedule.getStartTime());
-                    editDialog.show();
-                }
-
-            });
-        }
-
-        private void setDeleteClickListener(long id) {
-            deleteView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                }
-            });
+            Toast.makeText(activity.getApplicationContext(),
+                    String.valueOf(schedule.getId()),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 

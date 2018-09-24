@@ -26,28 +26,6 @@ public class AppTheme {
         return color;
     }
 
-    public static int getFullscreenDialogStyle(Context context) {
-        String theme = PreferenceManager.getDefaultSharedPreferences(context)
-                .getString("app_theme", "Default Theme");
-
-        if (isDarkTheme(theme)) {
-            return R.style.Theme_AppCompat_DialogWhenLarge;
-        } else {
-            return R.style.Theme_AppCompat_Light_DialogWhenLarge;
-        }
-
-    }
-
-    public static boolean isDarkTheme(String theme) {
-        if (theme.equals("Default Theme") ||
-                theme.equals("Green Theme") ||
-                theme.equals("Pink Theme")) {
-            return false;
-        } else return theme.equals("Dark Theme") ||
-                theme.equals("Green Dark Theme") ||
-                theme.equals("Pink Dark Theme");
-    }
-
     private static int get(String theme) {
         switch (theme) {
             case "Default Theme":
