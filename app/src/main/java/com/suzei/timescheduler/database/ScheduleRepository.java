@@ -12,20 +12,20 @@ public class ScheduleRepository {
         this.scheduleDao = scheduleDao;
     }
 
-    public void createSchedule(ScheduleEntity scheduleEntity) {
-        scheduleDao.insertSchedule(scheduleEntity);
+    public void createSchedule(Schedule schedule) {
+        scheduleDao.insertSchedule(schedule);
     }
 
-    public LiveData<List<ScheduleEntity>> getAllSchedule() {
+    public LiveData<List<Schedule>> getAllSchedule() {
         return scheduleDao.getAllSchedule();
     }
 
-    public LiveData<ScheduleEntity> getScheduleById(String itemId) {
+    public LiveData<Schedule> getScheduleById(String itemId) {
         return scheduleDao.getScheduleById(itemId);
     }
 
-    public void deleteSchedule(ScheduleEntity scheduleEntity) {
-        scheduleDao.delete(scheduleEntity);
+    public void deleteSchedule(Schedule schedule) {
+        scheduleDao.delete(schedule);
     }
 
     public void deleteAllSchedule() {

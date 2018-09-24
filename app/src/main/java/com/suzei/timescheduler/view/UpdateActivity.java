@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.suzei.timescheduler.R;
 import com.suzei.timescheduler.TimeSchedule;
-import com.suzei.timescheduler.database.ScheduleEntity;
+import com.suzei.timescheduler.database.Schedule;
 import com.suzei.timescheduler.util.AppTheme;
 import com.suzei.timescheduler.viewmodel.ScheduleCollectionViewModel;
 import com.suzei.timescheduler.viewmodel.UpsertScheduleViewModel;
@@ -115,14 +115,14 @@ public class UpdateActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.menu_save) {
             //  Save data
             if (istTimeCorrect()) {
-                ScheduleEntity scheduleEntity = new ScheduleEntity(
+                Schedule schedule = new Schedule(
                         rowId,
                         getString(nameView),
                         getString(startTimeView),
                         getString(endTimeView),
                         TimeSchedule.ACTIVE);
 
-                updateScheduleViewModel.upsertSchedule(scheduleEntity);
+                updateScheduleViewModel.upsertSchedule(schedule);
                 Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

@@ -6,10 +6,11 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Random;
 import java.util.UUID;
 
 @Entity
-public class ScheduleEntity {
+public class Schedule {
 
     @NonNull
     @PrimaryKey
@@ -26,15 +27,15 @@ public class ScheduleEntity {
     private int active;
 
     @Ignore
-    public ScheduleEntity(String name, String startTime, String endTime, int active) {
-        this.id = UUID.randomUUID().toString();
+    public Schedule(String name, String startTime, String endTime, int active) {
+        this.id = generateRandomId();
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.active = active;
     }
 
-    public ScheduleEntity(@NonNull String id, String name, String startTime, String endTime, int active) {
+    public Schedule(@NonNull String id, String name, String startTime, String endTime, int active) {
         this.id = id;
         this.name = name;
         this.startTime = startTime;
@@ -81,6 +82,12 @@ public class ScheduleEntity {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    private String generateRandomId() {
+        Random r = new Random( System.currentTimeMillis() );
+        int id = 10000 + r.nextInt(20000);
+        return String.valueOf(id);
     }
 
 }

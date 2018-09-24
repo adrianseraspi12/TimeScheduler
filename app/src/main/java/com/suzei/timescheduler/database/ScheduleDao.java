@@ -6,7 +6,6 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -14,18 +13,18 @@ import java.util.List;
 public interface ScheduleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertSchedule(ScheduleEntity scheduleEntity);
+    void insertSchedule(Schedule schedule);
 
-    @Query("SELECT * FROM ScheduleEntity")
-    LiveData<List<ScheduleEntity>> getAllSchedule();
+    @Query("SELECT * FROM Schedule")
+    LiveData<List<Schedule>> getAllSchedule();
 
-    @Query("SELECT * FROM ScheduleEntity WHERE id = :itemId")
-    LiveData<ScheduleEntity> getScheduleById(String itemId);
+    @Query("SELECT * FROM Schedule WHERE id = :itemId")
+    LiveData<Schedule> getScheduleById(String itemId);
 
     @Delete
-    void delete(ScheduleEntity scheduleEntity);
+    void delete(Schedule schedule);
 
-    @Query("DELETE FROM ScheduleEntity")
+    @Query("DELETE FROM Schedule")
     void deleteAllSchedule();
 
 }

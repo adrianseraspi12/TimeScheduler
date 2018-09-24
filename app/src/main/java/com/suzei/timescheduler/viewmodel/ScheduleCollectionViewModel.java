@@ -3,7 +3,7 @@ package com.suzei.timescheduler.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.suzei.timescheduler.database.ScheduleEntity;
+import com.suzei.timescheduler.database.Schedule;
 import com.suzei.timescheduler.database.ScheduleRepository;
 
 import java.util.List;
@@ -16,11 +16,11 @@ public class ScheduleCollectionViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    public LiveData<List<ScheduleEntity>> getAllSchedule() {
+    public LiveData<List<Schedule>> getAllSchedule() {
         return repository.getAllSchedule();
     }
 
-    public LiveData<ScheduleEntity> getScheduleById(String itemId) {
+    public LiveData<Schedule> getScheduleById(String itemId) {
         return repository.getScheduleById(itemId);
     }
 

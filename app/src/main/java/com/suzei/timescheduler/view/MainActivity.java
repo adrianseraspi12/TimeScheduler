@@ -18,11 +18,12 @@ import android.view.MenuItem;
 import com.suzei.timescheduler.R;
 import com.suzei.timescheduler.TimeSchedule;
 import com.suzei.timescheduler.adapter.ScheduleAdapter;
-import com.suzei.timescheduler.database.ScheduleEntity;
+import com.suzei.timescheduler.database.Schedule;
 import com.suzei.timescheduler.preference.SettingsActivity;
 import com.suzei.timescheduler.util.AppTheme;
 import com.suzei.timescheduler.viewmodel.DeleteScheduleViewModel;
 import com.suzei.timescheduler.viewmodel.ScheduleCollectionViewModel;
+import com.suzei.timescheduler.viewmodel.UpsertScheduleViewModel;
 
 import java.util.List;
 
@@ -36,16 +37,17 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
     private ScheduleAdapter adapter;
-    private List<ScheduleEntity> scheduleEntityList;
+    private List<Schedule> scheduleList;
 
     private int tempPosition;
-    private ScheduleEntity tempScheduleEntity;
+    private Schedule tempSchedule;
 
     @Inject
     ViewModelProvider.Factory viewModelProvider;
 
     private ScheduleCollectionViewModel scheduleCollectionViewModel;
     private DeleteScheduleViewModel deleteScheduleViewModel;
+    private UpsertScheduleViewModel upsertScheduleViewModel;
 
     @BindString(R.string.undo) String undoString;
     @BindString(R.string.schedule_deleted) String scheduleDeleteString;
@@ -82,11 +84,15 @@ public class MainActivity extends AppCompatActivity {
         deleteScheduleViewModel = ViewModelProviders
                 .of(this, viewModelProvider)
                 .get(DeleteScheduleViewModel.class);
+
+        upsertScheduleViewModel = ViewModelProviders
+                .of(this, viewModelProvider)
+                .get(UpsertScheduleViewModel.class);
     }
 
     private void setUpScheduleList() {
         scheduleCollectionViewModel.getAllSchedule().observe(this, schedules -> {
-            if (MainActivity.this.scheduleEntityList == null) {
+            if (MainActivity.this.scheduleList == null) {
                 setListToAdapter(schedules);
             }
         });
@@ -103,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(listScheduleView);
     }
 
-    private void setListToAdapter(List<ScheduleEntity> scheduleEntities) {
-        this.scheduleEntityList = scheduleEntities;
-        adapter = new ScheduleAdapter(this, scheduleEntities);
+    private void setListToAdapter(List<Schedule> scheduleEntities) {
+        this.scheduleList = scheduleEntities;
+        adapter = new ScheduleAdapter(this, scheduleEntities, upsertScheduleViewModel);
         listScheduleView.setAdapter(adapter);
     }
 
@@ -115,7 +121,10 @@ public class MainActivity extends AppCompatActivity {
                 ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
 
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder viewHolder1) {
+
                 return false;
             }
 
@@ -123,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 int position = viewHolder.getAdapterPosition();
                 tempPosition = position;
-                tempScheduleEntity = scheduleEntityList.get(position);
+                tempSchedule = scheduleList.get(position);
 
-                scheduleEntityList.remove(scheduleEntityList.get(position));
+                scheduleList.remove(scheduleList.get(position));
                 adapter.notifyItemRemoved(position);
 
                 showUndoSnackbar();
@@ -136,18 +145,18 @@ public class MainActivity extends AppCompatActivity {
     private void showUndoSnackbar() {
         Snackbar.make(rootView, scheduleDeleteString, Snackbar.LENGTH_LONG)
                 .setAction(undoString, v -> {
-                    scheduleEntityList.add(tempScheduleEntity);
+                    scheduleList.add(tempSchedule);
                     adapter.notifyItemInserted(tempPosition);
 
-                    this.tempScheduleEntity = null;
+                    this.tempSchedule = null;
                     this.tempPosition = 0;
                 })
                 .addCallback(new Snackbar.Callback() {
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if (tempScheduleEntity != null) {
-                            deleteScheduleViewModel.deleteSchedule(tempScheduleEntity);
+                        if (tempSchedule != null) {
+                            deleteScheduleViewModel.deleteSchedule(tempSchedule);
                         }
                     }
                 })

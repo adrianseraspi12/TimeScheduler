@@ -3,7 +3,7 @@ package com.suzei.timescheduler.viewmodel;
 import android.arch.lifecycle.ViewModel;
 import android.os.AsyncTask;
 
-import com.suzei.timescheduler.database.ScheduleEntity;
+import com.suzei.timescheduler.database.Schedule;
 import com.suzei.timescheduler.database.ScheduleRepository;
 
 public class UpsertScheduleViewModel extends ViewModel {
@@ -14,11 +14,11 @@ public class UpsertScheduleViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    public void upsertSchedule(ScheduleEntity scheduleEntity) {
-        new CreateScheduleTask(repository).execute(scheduleEntity);
+    public void upsertSchedule(Schedule schedule) {
+        new CreateScheduleTask(repository).execute(schedule);
     }
 
-    private static class CreateScheduleTask extends AsyncTask<ScheduleEntity, Void, Void> {
+    private static class CreateScheduleTask extends AsyncTask<Schedule, Void, Void> {
 
         private ScheduleRepository repository;
 
@@ -27,7 +27,7 @@ public class UpsertScheduleViewModel extends ViewModel {
         }
 
         @Override
-        protected Void doInBackground(ScheduleEntity... scheduleEntities) {
+        protected Void doInBackground(Schedule... scheduleEntities) {
             repository.createSchedule(scheduleEntities[0]);
             return null;
         }
