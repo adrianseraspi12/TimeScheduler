@@ -27,7 +27,9 @@ MVVM - (Model, View, ViewModel)
 <img src="https://github.com/adrianseraspi12/TimeScheduler/blob/master/pictures/mvvm.png" alt="MVVM pic" width="200px"/>
 
 VIEW - UI interaction
+
 VIEWMODEL - Used Asynctask for database change and used LiveData to update everytime there is a change
+
 REPOSITORY - Holds the DAO from the Room
 
 ### References/Teachers
