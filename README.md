@@ -41,6 +41,3 @@ REPOSITORY - Holds the DAO from the Room
 2. https://www.youtube.com/channel/UC_Fh8kvtkVPkeihBs42jGcA
 3. https://medium.com/@margaretmz/exploring-the-android-architecture-components-117515acfa8
 4. https://github.com/googlesamples/android-architecture-components/tree/master/BasicSample
-
-### Note
-If there is something wrong with my code please let me know so that I can learn from my mistakes and be a better developer.
