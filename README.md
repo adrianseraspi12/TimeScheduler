@@ -34,7 +34,7 @@ VIEWMODEL - Used Asynctask for database change and used LiveData to update every
 REPOSITORY - Holds the DAO from the Room
 
 ### Issues
-1. Not showing alarm/notification for API 23 and up. AlarmManager method that i should use: [setAndAllowWhileIdle](https://developer.android.com/reference/android/app/AlarmManager?hl=pt-br#setAndAllowWhileIdle(int,%20long,%20android.app.PendingIntent))
+1. Not showing alarm/notification for API 23 and up.
 
 ### References/Teachers
 1. https://www.youtube.com/wiseass
